@@ -6,15 +6,28 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <NameList items={["Sweets", "Rick"]}/>
       </div>
     );
+  }
+}
+
+class NameList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      names: props.items
+    };
+  }
+  listItems(items) {
+    return items.map(item => <li>{item}</li>)
+  }
+  render() {
+    return (
+      <ol>
+        {this.listItems(this.state.names)}
+      </ol>
+    )
   }
 }
 
