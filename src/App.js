@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ResultList from './Components/ResultList';
 
 var PEOPLE = [
   "Sally",
@@ -26,6 +26,7 @@ class NameList extends React.Component {
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
+    //this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   handleTextChange(newText) {
@@ -41,7 +42,7 @@ class NameList extends React.Component {
   render() {
     return (
       <div>
-        <InputField onFormSubmit={this.handleFormSubmit} onTextInput={this.handleTextChange} nameValue={this.state.text}/>
+        <InputField onFormSubmit={this.handleFormSubmit.bind(this)} onTextInput={this.handleTextChange} nameValue={this.state.text}/>
         <ResultList names={this.state.names}/>
       </div>
     );
@@ -49,12 +50,6 @@ class NameList extends React.Component {
 }
 
 class InputField extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-  }
-
   handleInputChange(event) {
     this.props.onTextInput(event.target.value);
   }
@@ -65,12 +60,12 @@ class InputField extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={this.handleFormSubmit.bind(this)}>
           <input
             type="text"
             placeholder="Add name"
             value={this.props.nameValue}
-            onChange={this.handleInputChange}
+            onChange={this.handleInputChange.bind(this)}
             />
         </form>
       </div>
@@ -78,20 +73,4 @@ class InputField extends React.Component {
   }
 }
 
-class ResultList extends React.Component {
-  render() {
-    var namesArr = [];
-    this.props.names.forEach(function(person) {
-      namesArr.push(<li>{person}</li>);
-    });
-
-    return (
-      <div>
-        <ul>
-          {namesArr}
-        </ul>
-      </div>
-    );
-  }
-}
 export default App;
