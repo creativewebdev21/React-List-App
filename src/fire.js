@@ -8,6 +8,6 @@ var config = {
     storageBucket: "trirideapp.appspot.com",
     messagingSenderId: "80884052615"
   };
-  var fire = firebase.initializeApp(config);
+var fire = firebase.initializeApp(config);
 
-  export default fire;
+export default fire;
