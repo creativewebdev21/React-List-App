@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class ResultList extends React.Component {
   render() {
     var namesArr = [];
     this.props.names.forEach(function(person) {
-      namesArr.push(<li>{person}</li>);
+      namesArr.push(<ListGroupItem key={ person }>{ person }</ListGroupItem>);
     });
 
     return (
       <div>
-        <ul>
-          {namesArr}
-        </ul>
+        <ListGroup>
+          { namesArr }
+        </ListGroup>
       </div>
     );
   }
