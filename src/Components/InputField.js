@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Form, FormGroup, Input } from 'reactstrap';
 
 class InputField extends React.Component {
   handleInputChange(event) {
@@ -11,14 +12,16 @@ class InputField extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleFormSubmit.bind(this)}>
-          <input
-            type="text"
-            placeholder="Add name"
-            value={this.props.nameValue}
-            onChange={this.handleInputChange.bind(this)}
-            />
-        </form>
+        <Form onSubmit={this.handleFormSubmit.bind(this)}>
+          <FormGroup>
+            <Input
+              type="text"
+              placeholder="Add name"
+              value={this.props.nameValue}
+              onChange={this.handleInputChange.bind(this)}
+              />
+          </FormGroup>
+        </Form>
       </div>
     );
   }
