@@ -1,11 +1,8 @@
 import React from 'react';
 import Car from './Car';
 import NewCarForm from './NewCarForm';
-import { Button } from 'reactstrap';
 
 class Race extends React.Component {
-
-
 
   render() {
     return(
