@@ -1,6 +1,4 @@
 import React from 'react';
-import InputField from './InputField';
-import ResultList from './ResultList';
 import Race from './Race';
 import fire from './../fire';
 import { ListGroup, ListGroupItem } from 'reactstrap';
@@ -20,7 +18,7 @@ class RaceList extends React.Component {
     let racesRef = fire.database().ref('Races').orderByKey().limitToLast(100);
     racesRef.on('child_added', snapshot => {
       /* Update React state when message is added at Firebase Database */
-      let race = { text: snapshot.val(), id: snapshot.key };
+      let race = { children: snapshot.val(), id: snapshot.key };
       newRaceList.push(race);
       this.setState({names: newRaceList});
     })
@@ -42,12 +40,11 @@ class RaceList extends React.Component {
   render() {
     let raceTables = [];
     this.state.names.forEach(function(race) {
-      raceTables.push(<ListGroupItem key={ race.id }><Race raceName={ race.id }/></ListGroupItem>);
+      raceTables.push(<ListGroupItem key={ race.id }><Race raceName={ race.id } raceDate={ race.children.Date } cars={ race.children.Cars }/></ListGroupItem>);
     });
 
     return (
       <div>
-        <InputField onFormSubmit={this.handleFormSubmit.bind(this)} onTextInput={this.handleTextChange.bind(this)} nameValue={this.state.text}/>
         <ListGroup>
           { raceTables }
         </ListGroup>
