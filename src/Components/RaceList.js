@@ -8,19 +8,19 @@ class RaceList extends React.Component {
     super(props);
     this.state = {
       text:'',
-      names: []
+      fbRaces: []
     };
   }
 
   componentWillMount() {
-    let newRaceList = this.state.names.slice();
+    let newRaceList = this.state.fbRaces.slice();
     /* Create reference to messages in Firebase Database */
     let racesRef = fire.database().ref('Races').orderByKey().limitToLast(100);
     racesRef.on('child_added', snapshot => {
       /* Update React state when message is added at Firebase Database */
       let race = { children: snapshot.val(), id: snapshot.key };
       newRaceList.push(race);
-      this.setState({names: newRaceList});
+      this.setState({fbRaces: newRaceList});
     })
   }
 
@@ -29,7 +29,7 @@ class RaceList extends React.Component {
   }
 
   handleFormSubmit(newName) {
-    let newRaceList = this.state.names.slice();
+    let newRaceList = this.state.fbRaces.slice();
     newRaceList.push({id:newName});
     this.setState({
       names: newRaceList,
@@ -39,7 +39,7 @@ class RaceList extends React.Component {
 
   render() {
     let raceTables = [];
-    this.state.names.forEach(function(race) {
+    this.state.fbRaces.forEach(function(race) {
       raceTables.push(<ListGroupItem key={ race.id }><Race raceName={ race.id } raceDate={ race.children.Date } cars={ race.children.Cars }/></ListGroupItem>);
     });
 
