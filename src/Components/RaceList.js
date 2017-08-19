@@ -1,52 +1,41 @@
 import React from 'react';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+
 import Race from './Race';
 import fire from './../fire';
-import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class RaceList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       text:'',
-      fbRaces: []
+      fbRaces: [],
+      firebaseRaceListRef: fire.database().ref('Races'),
+      raceHTML: []
     };
   }
 
   componentWillMount() {
-    let newRaceList = this.state.fbRaces.slice();
-    /* Create reference to messages in Firebase Database */
-    let racesRef = fire.database().ref('Races').orderByKey().limitToLast(100);
-    racesRef.on('child_added', snapshot => {
-      /* Update React state when message is added at Firebase Database */
-      let race = { children: snapshot.val(), id: snapshot.key };
+    let newRaceList = [];
+    let raceTables = [];
+    this.state.firebaseRaceListRef.on('child_added', snapshot => {
+      let race = { children: snapshot.val(), id: snapshot.key, cars:snapshot.child("Cars") };
+      raceTables.push(<ListGroupItem key={ race.id }><Race raceName={ race.id } raceDate={ race.children.Date }/></ListGroupItem>);
       newRaceList.push(race);
       this.setState({fbRaces: newRaceList});
-    })
+      this.setState({raceHTML: raceTables});
+    });
   }
 
   handleTextChange(newText) {
     this.setState({text: newText});
   }
 
-  handleFormSubmit(newName) {
-    let newRaceList = this.state.fbRaces.slice();
-    newRaceList.push({id:newName});
-    this.setState({
-      names: newRaceList,
-      text: ''
-    });
-  }
-
   render() {
-    let raceTables = [];
-    this.state.fbRaces.forEach(function(race) {
-      raceTables.push(<ListGroupItem key={ race.id }><Race raceName={ race.id } raceDate={ race.children.Date } cars={ race.children.Cars }/></ListGroupItem>);
-    });
-
     return (
       <div>
         <ListGroup>
-          { raceTables }
+          { this.state.raceHTML }
         </ListGroup>
       </div>
     );
