@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from 'reactstrap';
 import firebase from 'firebase';
+import { Button } from 'reactstrap';
 
 class LoginPanel extends React.Component {
   googleLogin() {
