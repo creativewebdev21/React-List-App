@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.css';
+
 import RaceList from  './Components/RaceList';
 import LoginPanel from './Components/LoginPanel';
+import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,12 +11,11 @@ class App extends React.Component {
       loggedIn: true
     };
   }
-  //Login Objects
+
   handleLoginEvent(authenticated) {
     this.setState({loggedIn: authenticated});
   }
 
-  //Render
   render() {
     return (
       <div className="App">
