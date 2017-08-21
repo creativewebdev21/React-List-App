@@ -17,7 +17,7 @@ class Race extends React.Component {
   }
 
   componentWillMount() {
-    this.setStateToFirebase();
+    this.setCarsToFirebase();
   }
 
   handleNameChange(newName) {
@@ -44,10 +44,10 @@ class Race extends React.Component {
       "LeaveTime": this.state.driverTime,
       "PassengerSpots": this.state.passengerSpots
     });
-    this.setStateToFirebase();
+    this.setCarsToFirebase();
   }
 
-  setStateToFirebase() {
+  setCarsToFirebase() {
     let newCarsSnap = [];
     this.state.firebaseRaceRef.child("Cars").on('child_added', car => {
       newCarsSnap.push(<Car key={ car.child("Driver").val() }
@@ -55,6 +55,9 @@ class Race extends React.Component {
                             leaveTime={ car.child("LeaveTime").val() }
                             bikeSpots={ car.child("BikeSpots").val() }
                             passengerSpots={ car.child("PassengerSpots").val() }
+                            passengerList={ car.child("Passengers").val() }
+                            firebaseCarRef={ this.state.firebaseRaceRef.child("Cars").child(car.key) }
+                            carKey={ car.key }
                             />);
       this.setState({ carArray: newCarsSnap });
     })
