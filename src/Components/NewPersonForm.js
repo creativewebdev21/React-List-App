@@ -2,11 +2,6 @@ import React from 'react';
 import { Input, Button } from 'reactstrap';
 
 class NewPersonForm extends React.Component {
-  handleFormSubmit(event) {
-    event.preventDefault();
-    //Add New Car to Table
-  }
-
   handleNameChange(event) {
     this.props.onNameChange(event.target.value);
   }
@@ -23,7 +18,7 @@ class NewPersonForm extends React.Component {
     return (
       <tr>
         <td></td>
-        <td><Button onClick={this.handleCarJoin.bind(this)} color="info">Join Car</Button>{' '}</td>
+        <td><Button onClick={this.handleCarJoin.bind(this)} color="info">Join Car</Button></td>
         <td><Input  onChange={this.handleNameChange.bind(this)}
                     type="text"
                     placeholder="Name"
