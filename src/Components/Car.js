@@ -8,20 +8,14 @@ class Car extends React.Component {
     this.state = {
       userName: "",
       userBikes: "",
-      passengers: [{name: "Hal Wilkerson", bikes:"1"},
-                    {name: "Tim Ferriss", bikes:"1"},
-                    {name: "Aubrey de Gray", bikes:"1"}
-                  ],
-      passengerHTML: []
+      passengers: this.props.passengerList,
+      passengerHTML: [],
+      firebaseCarRef: this.props.firebaseCarRef
     };
   }
 
   componentWillMount() {
-    let personArray = [];
-    this.state.passengers.forEach(function(person) {
-      personArray.push(<tr key={ person.name }><td></td><td></td><td>{ person.name }</td><td>{ person.bikes }</td></tr>);
-    });
-    this.setState({ passengerHTML: personArray });
+    this.setPassengersToFirebase();
   }
 
   handleUserChange(newUser) {
@@ -32,13 +26,28 @@ class Car extends React.Component {
     this.setState({ userBikes: newBike });
   }
 
-  addPerson() {
-    let passengers = this.state.passengers;
-    passengers.push({ name: this.state.userName, bikes: this.state.userBikes });
-    this.setState({ passengers: passengers,
-                    userName: "",
-                    userBikes: ""
-                  });
+  addPassengerToFirebase() {
+    let newPassengerRef = this.state.firebaseCarRef.child("Passengers").push();
+    newPassengerRef.set({
+      "Name": this.state.userName,
+      "Bikes": this.state.userBikes
+    });
+    this.setPassengersToFirebase();
+  }
+
+  setPassengersToFirebase() {
+    let personArray = [];
+    this.state.firebaseCarRef.child("Passengers").on('value', passengers => {
+      passengers.forEach(person => {
+        personArray.push(<tr key={ person.child('Name').val() }>
+                          <td></td>
+                          <td></td>
+                          <td>{ person.child('Name').val() }</td>
+                          <td>{ person.child('Bikes').val() }</td>
+                        </tr>);
+      });
+    });
+    this.setState({ passengerHTML: personArray });
   }
 
   render() {
@@ -54,7 +63,7 @@ class Car extends React.Component {
         </thead>
         <tbody>
           { this.state.passengerHTML }
-          <NewPersonForm  onBtnJoinCarClick={ this.addPerson.bind(this) }
+          <NewPersonForm  onBtnJoinCarClick={ this.addPassengerToFirebase.bind(this) }
                           onBikeChange={ this.handleBikeChange.bind(this) }
                           onNameChange={ this.handleUserChange.bind(this) }
                           userName={ this.state.userName }

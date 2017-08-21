@@ -4,7 +4,7 @@ import { Form, FormGroup, Button, Input } from 'reactstrap';
 class NewCarForm extends React.Component {
   handleFormSubmit(event) {
     event.preventDefault();
-    //Add New Car to Table
+    this.props.onBtnAddCarClick();
   }
 
   handleNameChange(event) {
@@ -23,10 +23,6 @@ class NewCarForm extends React.Component {
     this.props.onPassengerSpotsChange(event.target.value);
   }
 
-  handleCarAdd(event) {
-    this.props.onBtnAddCarClick();
-  }
-
   render() {
     return(
       <Form inline onSubmit={this.handleFormSubmit.bind(this)}>
@@ -35,7 +31,7 @@ class NewCarForm extends React.Component {
         </FormGroup>
         {' '}
         <FormGroup>
-          <Input onChange={this.handleTimeChange.bind(this)} type="text" value={this.props.driverTime} placeholder="Time (Day HH:MM AM/PM)" />
+          <Input onChange={this.handleTimeChange.bind(this)} type="text" value={this.props.driverTime} placeholder="Depart (Day HH:MM AM/PM)" />
         </FormGroup>
         {' '}
         <FormGroup>
@@ -47,7 +43,7 @@ class NewCarForm extends React.Component {
         </FormGroup>
         {' '}
         <FormGroup>
-          <Button onClick={this.handleCarAdd.bind(this)} color="danger">Add Car</Button>{' '}
+          <Button onClick={this.handleFormSubmit.bind(this)} color="danger">Add Car</Button>{' '}
         </FormGroup>
       </Form>
     );
