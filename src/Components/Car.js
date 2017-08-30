@@ -8,9 +8,7 @@ class Car extends React.Component {
     this.state = {
       userName: "",
       userBikes: "",
-      passengers: [{name: "Hal Wilkerson", bikes:"1"},
-                    {name: "Tim Ferriss", bikes:"1"},
-                    {name: "Aubrey de Gray", bikes:"1"}
+      passengers: [
                   ],
       passengerHTML: []
     };
