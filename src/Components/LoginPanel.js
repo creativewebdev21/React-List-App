@@ -11,8 +11,7 @@ class LoginPanel extends React.Component {
   render() {
     return(
       <div>
-        <Button color="danger" onClick={this.googleLogin}>Login with Google</Button>
-        <Button color="primary">Login with Facebook</Button>
+        <Button color="danger" onClick={ this.googleLogin }>Login with Google</Button>
       </div>
     );
   }

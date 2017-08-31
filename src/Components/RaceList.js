@@ -19,6 +19,7 @@ class RaceList extends React.Component {
     let newRaceList = [];
     let raceTables = [];
     this.state.firebaseRaceListRef.on('child_added', snapshot => {
+      console.log(snapshot);
       let race = { children: snapshot.val(), id: snapshot.key, cars:snapshot.child("Cars") };
       raceTables.push(<ListGroupItem key={ race.id }><Race raceName={ race.id } raceDate={ race.children.Date }/></ListGroupItem>);
       newRaceList.push(race);
