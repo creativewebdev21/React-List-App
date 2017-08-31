@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 - [Summary](#summary)
 - [Setup](#setup)
-- [React State](#react state)
+- [React State](#react-state)
 - [Contact](#contact)
 
 ## Summary
