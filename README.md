@@ -17,9 +17,9 @@ Uses Firebase:
 
 ## Setup
 In order to start using this application, you need to do x things:
-..* Clone the code (repository) from Github to your computer
-..* Setup application and install dependencies
-..* Run the application and log in
+* Clone the code (repository) from Github to your computer
+* Setup application and install dependencies
+* Run the application and log in
 
 Clone the repository by opening your terminal (for windows, I use cmder found [here](http://cmder.net/)) then run `git clone https://github.com/SweetmanTech/react-list-app.git`. This will copy all files from the Github storage to the directory your terminal window is set to.
 
